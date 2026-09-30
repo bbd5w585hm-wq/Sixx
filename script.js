@@ -1,480 +1,398 @@
-const FORMSPREE_URL =
-  "https://formspree.io/f/xvkgldlb";
+* {
+  box-sizing: border-box;
+}
 
+body {
+  margin: 0;
+  min-height: 100vh;
 
-let selectedLocation = "";
-let selectedActivity = "";
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  padding: 24px;
 
-const dateInput =
-  document.getElementById("date");
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
 
-const timeInput =
-  document.getElementById("time");
+  background:
+    linear-gradient(
+      135deg,
+      #fff1f5,
+      #ffe1eb,
+      #fff7fa
+    );
 
-const noBtn =
-  document.getElementById("noBtn");
+  color: #4a2833;
 
-const statusEl =
-  document.getElementById("status");
-
-
-/* =========================
-   PAGE CONTROL
-========================= */
-
-function showPage(pageNumber) {
-
-  document
-    .querySelectorAll(".page")
-    .forEach(page => {
-      page.classList.remove("active");
-    });
-
-  document
-    .getElementById(`page${pageNumber}`)
-    .classList.add("active");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  overflow-x: hidden;
 }
 
 
-/* =========================
-   YES BUTTON
-========================= */
+/* CARD */
 
-document
-  .getElementById("yesBtn")
-  .addEventListener("click", () => {
+.card {
+  width: min(560px, 100%);
 
-    showPage(2);
+  min-height: 600px;
 
-  });
+  padding: 42px 34px;
 
+  border-radius: 30px;
 
-/* =========================
-   RUNAWAY NO BUTTON
-========================= */
+  background: rgba(255, 255, 255, 0.92);
 
-function moveNoButton() {
+  box-shadow:
+    0 20px 60px rgba(160, 65, 95, 0.18);
 
-  const container =
-    noBtn.parentElement;
+  text-align: center;
 
-  const maxX =
-    Math.max(
-      0,
-      container.clientWidth -
-      noBtn.offsetWidth
-    );
+  position: relative;
 
-  const maxY =
-    Math.max(
-      0,
-      container.clientHeight -
-      noBtn.offsetHeight
-    );
-
-  const randomX =
-    Math.random() * maxX;
-
-  const randomY =
-    Math.random() * maxY;
-
-  noBtn.style.left =
-    `${randomX}px`;
-
-  noBtn.style.top =
-    `${randomY}px`;
+  z-index: 2;
 }
 
 
-noBtn.addEventListener(
-  "mouseenter",
-  moveNoButton
-);
+/* PAGES */
+
+.page {
+  display: none;
+
+  animation: fadeIn 0.35s ease;
+}
+
+.page.active {
+  display: block;
+}
 
 
-noBtn.addEventListener(
-  "touchstart",
-  event => {
+/* TEXT */
 
-    event.preventDefault();
+.emoji {
+  font-size: 64px;
+  margin-bottom: 14px;
+}
 
-    moveNoButton();
+.eyebrow {
+  color: #c45b7a;
 
+  font-weight: 700;
+
+  letter-spacing: 0.05em;
+
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(32px, 7vw, 48px);
+
+  margin: 8px 0 22px;
+}
+
+h2 {
+  font-size: clamp(24px, 5vw, 32px);
+
+  margin: 18px 0;
+}
+
+.question,
+.subtext {
+  color: #765461;
+
+  line-height: 1.6;
+}
+
+.question {
+  font-size: 18px;
+}
+
+
+/* INPUT */
+
+label {
+  display: block;
+
+  text-align: left;
+
+  margin: 20px 0 8px;
+
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+
+  padding: 15px 16px;
+
+  border: 2px solid #f0c8d5;
+
+  border-radius: 14px;
+
+  font-size: 17px;
+
+  outline: none;
+
+  background: #fffafd;
+}
+
+input:focus {
+  border-color: #d96b8d;
+}
+
+
+/* BUTTONS */
+
+button {
+  border: 0;
+
+  cursor: pointer;
+
+  font: inherit;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+/* PAGE 1 */
+
+.buttons {
+  position: relative;
+
+  min-height: 130px;
+
+  margin-top: 28px;
+}
+
+.yes-btn,
+.no-btn,
+.next-btn,
+.send-btn {
+  padding: 15px 26px;
+
+  border-radius: 999px;
+}
+
+.yes-btn {
+  background: #e85d86;
+
+  color: white;
+
+  box-shadow:
+    0 10px 25px rgba(232, 93, 134, 0.28);
+
+  margin-right: 10px;
+}
+
+.yes-btn:hover,
+.send-btn:hover,
+.next-btn:hover {
+  transform: translateY(-2px);
+}
+
+
+/* NO BUTTON */
+
+.no-btn {
+  background: #f5e8ed;
+
+  color: #754b59;
+
+  position: absolute;
+
+  left: 58%;
+
+  top: 0;
+
+  transition:
+    left 0.18s ease,
+    top 0.18s ease,
+    transform 0.18s ease;
+}
+
+
+/* NEXT / SEND */
+
+.next-btn,
+.send-btn {
+  margin-top: 28px;
+
+  background: #d95f83;
+
+  color: white;
+
+  box-shadow:
+    0 10px 25px rgba(217, 95, 131, 0.25);
+}
+
+
+/* OPTIONS */
+
+.option-grid {
+  display: grid;
+
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+.location-grid,
+.activity-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.option-grid button {
+  padding: 16px 12px;
+
+  border-radius: 16px;
+
+  background: #fff1f5;
+
+  color: #633845;
+
+  border: 2px solid transparent;
+}
+
+.option-grid button:hover {
+  transform: translateY(-2px);
+}
+
+.option-grid button.selected {
+  background: #f8c2d2;
+
+  border-color: #d95f83;
+
+  box-shadow:
+    0 7px 18px rgba(217, 95, 131, 0.15);
+}
+
+
+/* SUMMARY */
+
+.summary {
+  margin: 28px 0;
+
+  padding: 22px;
+
+  border-radius: 20px;
+
+  background: #fff1f5;
+
+  text-align: left;
+
+  line-height: 1.7;
+}
+
+.summary p {
+  margin: 8px 0;
+}
+
+.final-message {
+  font-size: 20px;
+
+  font-weight: 700;
+
+  color: #c34e72;
+}
+
+.status {
+  min-height: 24px;
+
+  margin-top: 14px;
+
+  color: #b33d60;
+
+  font-size: 14px;
+}
+
+
+/* HEARTS */
+
+.hearts::before,
+.hearts::after {
+  content: "♡  ♥  ♡  ♥  ♡";
+
+  position: fixed;
+
+  color: rgba(217, 95, 131, 0.12);
+
+  font-size: 55px;
+
+  letter-spacing: 30px;
+
+  white-space: nowrap;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+.hearts::before {
+  top: 8%;
+
+  left: -10%;
+
+  transform: rotate(-10deg);
+}
+
+.hearts::after {
+  bottom: 8%;
+
+  right: -15%;
+
+  transform: rotate(8deg);
+}
+
+
+/* ANIMATION */
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+
+    transform: translateY(8px);
   }
-);
 
+  to {
+    opacity: 1;
 
-/* =========================
-   PAGE 2 → PAGE 3
-========================= */
-
-document
-  .getElementById("toPage3")
-  .addEventListener("click", () => {
-
-    if (
-      !dateInput.value ||
-      !timeInput.value
-    ) {
-
-      alert(
-        "Please choose a date and time 💕"
-      );
-
-      return;
-    }
-
-
-    /* Double-check:
-       ONLY NOV + DEC 2026
-    */
-
-    const selectedDate =
-      new Date(
-        `${dateInput.value}T00:00:00`
-      );
-
-    const minDate =
-      new Date("2026-11-01T00:00:00");
-
-    const maxDate =
-      new Date("2026-12-31T00:00:00");
-
-
-    if (
-      selectedDate < minDate ||
-      selectedDate > maxDate
-    ) {
-
-      alert(
-        "Please choose a date in November or December 2026 💕"
-      );
-
-      return;
-    }
-
-
-    showPage(3);
-
-  });
-
-
-/* =========================
-   LOCATION
-========================= */
-
-document
-  .querySelectorAll(
-    "#locationOptions button"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(
-            "#locationOptions button"
-          )
-          .forEach(btn => {
-
-            btn.classList.remove(
-              "selected"
-            );
-
-          });
-
-
-        button.classList.add(
-          "selected"
-        );
-
-
-        selectedLocation =
-          button.dataset.value;
-
-      }
-    );
-
-  });
-
-
-/* =========================
-   PAGE 3 → PAGE 4
-========================= */
-
-document
-  .getElementById("toPage4")
-  .addEventListener("click", () => {
-
-    if (!selectedLocation) {
-
-      alert(
-        "Please choose a place 💕"
-      );
-
-      return;
-    }
-
-    showPage(4);
-
-  });
-
-
-/* =========================
-   ACTIVITY
-========================= */
-
-document
-  .querySelectorAll(
-    "#activityOptions button"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(
-            "#activityOptions button"
-          )
-          .forEach(btn => {
-
-            btn.classList.remove(
-              "selected"
-            );
-
-          });
-
-
-        button.classList.add(
-          "selected"
-        );
-
-
-        selectedActivity =
-          button.dataset.value;
-
-      }
-    );
-
-  });
-
-
-/* =========================
-   DATE FORMAT
-========================= */
-
-function formatDate(dateString) {
-
-  const date =
-    new Date(
-      `${dateString}T00:00:00`
-    );
-
-
-  return date.toLocaleDateString(
-    "en-US",
-    {
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    }
-  );
+    transform: translateY(0);
+  }
 
 }
 
 
-/* =========================
-   TIME FORMAT
-========================= */
+/* MOBILE */
 
-function formatTime(timeString) {
+@media (max-width: 520px) {
 
-  const [hours, minutes] =
-    timeString.split(":");
+  body {
+    padding: 14px;
+  }
 
+  .card {
+    min-height: 0;
 
-  const date =
-    new Date();
+    padding: 32px 20px;
 
+    border-radius: 24px;
+  }
 
-  date.setHours(
-    Number(hours),
-    Number(minutes),
-    0,
-    0
-  );
+  .location-grid,
+  .activity-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 
+  .no-btn {
+    left: 60%;
+  }
 
-  return date.toLocaleTimeString(
-    "en-US",
-    {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true
-    }
-  );
-
-}
-
-
-/* =========================
-   SEND TO FORMSPREE
-========================= */
-
-document
-  .getElementById("sendBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      if (!selectedActivity) {
-
-        alert(
-          "Please choose what you want to do 💕"
-        );
-
-        return;
-      }
-
-
-      statusEl.textContent =
-        "Sending... 💌";
-
-
-      const formData =
-        new FormData();
-
-
-      formData.append(
-        "_subject",
-        "Six Date Invitation 💌"
-      );
-
-
-      formData.append(
-        "name",
-        "Dr. Tommy"
-      );
-
-
-      formData.append(
-        "date",
-        formatDate(
-          dateInput.value
-        )
-      );
-
-
-      formData.append(
-        "time",
-        formatTime(
-          timeInput.value
-        )
-      );
-
-
-      formData.append(
-        "location",
-        selectedLocation
-      );
-
-
-      formData.append(
-        "activity",
-        selectedActivity
-      );
-
-
-      try {
-
-        const response =
-          await fetch(
-            FORMSPREE_URL,
-            {
-              method: "POST",
-
-              body: formData,
-
-              headers: {
-                Accept:
-                  "application/json"
-              }
-            }
-          );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Form submission failed"
-          );
-
-        }
-
-
-        /* PAGE 5 */
-
-        document
-          .getElementById(
-            "summaryDate"
-          )
-          .textContent =
-          formatDate(
-            dateInput.value
-          );
-
-
-        document
-          .getElementById(
-            "summaryTime"
-          )
-          .textContent =
-          formatTime(
-            timeInput.value
-          );
-
-
-        document
-          .getElementById(
-            "summaryLocation"
-          )
-          .textContent =
-          selectedLocation;
-
-
-        document
-          .getElementById(
-            "summaryActivity"
-          )
-          .textContent =
-          selectedActivity;
-
-
-        statusEl.textContent = "";
-
-
-        showPage(5);
-
-      }
-
-      catch (error) {
-
-        console.error(error);
-
-        statusEl.textContent =
-          "Something went wrong. Please try again.";
-
-      }
-
-    }
-  );
