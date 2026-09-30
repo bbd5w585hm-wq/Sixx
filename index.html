@@ -1,8 +1,238 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Six ❤️ Dr. Tommy</title><link rel="stylesheet" href="style.css"></head><body>
-<div class="card" id="page1"><div class="heart">💌</div><div class="eyebrow">A little invitation from Six</div><h1>Dr. Tommy,</h1><p>Six has a very important question for you...</p><h2>Will you go on a date with Six?</h2><div class="buttons" id="buttons"><button id="yes">Yes!!! 💕</button><button id="no">No</button></div><div class="small">Choose wisely 👀</div></div>
-<div class="card hidden" id="page2"><div class="heart">📅</div><h1>When should we go?</h1><p>Pick a date and time for our date.</p><label>Date</label><input type="date" id="date"><label>Time</label><input type="time" id="time"><button class="next" id="dateNext">Next 💕</button></div>
-<div class="card hidden" id="page3"><div class="heart">🇹🇼</div><h1>Where should we go?</h1><p>Pick a place in Taiwan.</p><div class="grid" id="locations">
-<button data-place="Taipei, Taiwan">🏙️ Taipei</button><button data-place="New Taipei, Taiwan">🌃 New Taipei</button><button data-place="Keelung, Taiwan">🌊 Keelung</button><button data-place="Hsinchu, Taiwan">🎋 Hsinchu</button><button data-place="Taichung, Taiwan">🏮 Taichung</button><button data-place="Tainan, Taiwan">🏛️ Tainan</button><button data-place="Kaohsiung, Taiwan">🌴 Kaohsiung</button><button data-place="Yilan, Taiwan">🌿 Yilan</button><button data-place="Hualien, Taiwan">🌊 Hualien</button><button data-place="Taitung, Taiwan">🌴 Taitung</button></div><button class="next" id="placeNext">Next 💕</button></div>
-<div class="card hidden" id="page4"><div class="heart">✨</div><h1>What should we do?</h1><p>Pick something for our date.</p><div class="grid" id="activities"><button data-activity="Dinner 🍽️">🍽️ Dinner</button><button data-activity="Coffee ☕">☕ Coffee</button><button data-activity="Drinks 🍸">🍸 Drinks</button><button data-activity="Beach 🌊">🌊 Beach</button><button data-activity="Movie 🎬">🎬 Movie</button><button data-activity="Surprise me ✨">✨ Surprise me</button></div><button class="next" id="send">Send it to Six 💌</button></div>
-<div class="card hidden" id="page5"><div class="heart">🥰</div><div class="eyebrow">It's official</div><h1>It's a date, Dr. Tommy!</h1><p id="final"></p><div class="bigHeart">❤️</div><p class="closing">Six can't wait to see you.</p></div>
-<script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Invitation from Six 💌</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="hearts"></div>
+
+  <main class="card">
+
+    <!-- PAGE 1 -->
+    <section class="page active" id="page1">
+
+      <div class="emoji">💌</div>
+
+      <p class="eyebrow">A little invitation from Six</p>
+
+      <h1>Dr. Tommy,</h1>
+
+      <p class="question">
+        Six has a very important question for you...
+      </p>
+
+      <h2>Will you go on a date with Six?</h2>
+
+      <div class="buttons">
+        <button class="yes-btn" id="yesBtn">
+          Yes!!! 💕
+        </button>
+
+        <button class="no-btn" id="noBtn">
+          No
+        </button>
+      </div>
+
+    </section>
+
+
+    <!-- PAGE 2 -->
+    <section class="page" id="page2">
+
+      <div class="emoji">📅</div>
+
+      <h2>When should we go?</h2>
+
+      <p class="subtext">
+        Pick a date and time 💕
+      </p>
+
+      <label for="date">Date</label>
+
+      <input
+        type="date"
+        id="date"
+        min="2026-11-01"
+        max="2026-12-31"
+        required
+      >
+
+      <label for="time">Time</label>
+
+      <input
+        type="time"
+        id="time"
+        required
+      >
+
+      <button class="next-btn" id="toPage3">
+        Next →
+      </button>
+
+    </section>
+
+
+    <!-- PAGE 3 -->
+    <section class="page" id="page3">
+
+      <div class="emoji">📍</div>
+
+      <h2>Where should we go?</h2>
+
+      <p class="subtext">
+        Choose a place in Taiwan
+      </p>
+
+      <div class="option-grid location-grid" id="locationOptions">
+
+        <button type="button" data-value="Taipei">
+          Taipei
+        </button>
+
+        <button type="button" data-value="New Taipei">
+          New Taipei
+        </button>
+
+        <button type="button" data-value="Keelung">
+          Keelung
+        </button>
+
+        <button type="button" data-value="Hsinchu">
+          Hsinchu
+        </button>
+
+        <button type="button" data-value="Taichung">
+          Taichung
+        </button>
+
+        <button type="button" data-value="Tainan">
+          Tainan
+        </button>
+
+        <button type="button" data-value="Kaohsiung">
+          Kaohsiung
+        </button>
+
+        <button type="button" data-value="Yilan">
+          Yilan
+        </button>
+
+        <button type="button" data-value="Hualien">
+          Hualien
+        </button>
+
+        <button type="button" data-value="Taitung">
+          Taitung
+        </button>
+
+      </div>
+
+      <button class="next-btn" id="toPage4">
+        Next →
+      </button>
+
+    </section>
+
+
+    <!-- PAGE 4 -->
+    <section class="page" id="page4">
+
+      <div class="emoji">✨</div>
+
+      <h2>What should we do?</h2>
+
+      <p class="subtext">
+        Pick your date activity
+      </p>
+
+      <div class="option-grid activity-grid" id="activityOptions">
+
+        <button type="button" data-value="Dinner 🍽️">
+          Dinner 🍽️
+        </button>
+
+        <button type="button" data-value="Coffee ☕">
+          Coffee ☕
+        </button>
+
+        <button type="button" data-value="Drinks 🍸">
+          Drinks 🍸
+        </button>
+
+        <button type="button" data-value="Beach 🌊">
+          Beach 🌊
+        </button>
+
+        <button type="button" data-value="Movie 🎬">
+          Movie 🎬
+        </button>
+
+        <button type="button" data-value="Surprise me ✨">
+          Surprise me ✨
+        </button>
+
+      </div>
+
+      <button class="send-btn" id="sendBtn">
+        Send it to Six 💌
+      </button>
+
+      <p class="status" id="status"></p>
+
+    </section>
+
+
+    <!-- PAGE 5 -->
+    <section class="page" id="page5">
+
+      <div class="emoji">🥰</div>
+
+      <p class="eyebrow">
+        Confirmed!
+      </p>
+
+      <h1>
+        It’s a date, Dr. Tommy!
+      </h1>
+
+      <div class="summary">
+
+        <p>
+          <strong>📅 Date:</strong>
+          <span id="summaryDate"></span>
+        </p>
+
+        <p>
+          <strong>⏰ Time:</strong>
+          <span id="summaryTime"></span>
+        </p>
+
+        <p>
+          <strong>📍 Place:</strong>
+          <span id="summaryLocation"></span>
+        </p>
+
+        <p>
+          <strong>✨ Activity:</strong>
+          <span id="summaryActivity"></span>
+        </p>
+
+      </div>
+
+      <p class="final-message">
+        Six can’t wait to see you. 💕
+      </p>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
